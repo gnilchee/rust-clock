@@ -1,7 +1,5 @@
 extern crate time;
 
-use std::cmp::Ordering;
-
 fn main() {
     loop {
         let now = time::now();
@@ -38,16 +36,16 @@ fn main() {
         };
 
         let minute = match m {
-            0   => "o' clock",
-            1   => "o' one",
-            2   => "o' two",
-            3   => "o' three",
-            4   => "o' four",
-            5   => "o' five",
-            6   => "o' six",
-            7   => "o' seven",
-            8   => "o' eight",
-            9   => "o' nine",
+            0   => "o'clock",
+            1   => "o'one",
+            2   => "o'two",
+            3   => "o'three",
+            4   => "o'four",
+            5   => "o'five",
+            6   => "o'six",
+            7   => "o'seven",
+            8   => "o'eight",
+            9   => "o'nine",
             10  => "ten",
             11  => "eleven",
             12  => "twelve",
@@ -101,10 +99,12 @@ fn main() {
             _   => "",
         };
 
-        let am_pm   = match h.cmp(&12) {
-            Ordering::Less      => "in the morning",
-            Ordering::Greater   => "in the evening",
-            Ordering::Equal     => "in the evening",
+        let am_pm   = if h < 12 {
+            "in the morning"
+        } else if h >= 12 && h < 18 {
+            "in the afternoon"
+        } else {
+            "in the evening"
         };
 
         println!("{} {} {}", hour, minute, am_pm);

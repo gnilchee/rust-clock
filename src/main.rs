@@ -2,10 +2,10 @@ extern crate time;
 
 fn main() {
     loop {
-        let now = time::now();
+        let then = time::now();
 
-        let h   = now.tm_hour;
-        let m   = now.tm_min;
+        let h   = then.tm_hour;
+        let m   = then.tm_min;
 
         let hour = match h {
             0   => "twelve",
@@ -109,7 +109,9 @@ fn main() {
 
         println!("{} {} {}", hour, minute, am_pm);
 
-        let one_second = std::time::Duration::new(1, 0);
-        std::thread::sleep(one_second);
+        loop {
+            let now  = time::now();
+            if now.tm_min != then.tm_min { break; }
+        }
     }
 }

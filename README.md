@@ -9,4 +9,5 @@ cargo build --release
 ```
 
 # To Do
-Make the looping cleaner so it just doen't continue line by line.
+- ~~Make the looping cleaner so it just doesn't continue line by line, printing same time.~~
+- Clear the screen when time changes.

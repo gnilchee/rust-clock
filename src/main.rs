@@ -1,12 +1,25 @@
 extern crate time;
 
 fn main() {
+    /*
+     * Main loop of main function.
+     * We immedietely print to screen from `then` variable to prevent
+     * up to a minute of delay before something is printed to screen
+     * after executing binary for rust clock
+     */
     loop {
+        /*
+         * Used `then` name since this assignment serves as a reference
+         * point for rest of function.
+         */
         let then = time::now();
-
+        /*
+         * Extrapolated the minute and hour from the
+         * time crate struct (Tm) through variable assignment
+         */
         let h   = then.tm_hour;
         let m   = then.tm_min;
-
+        // This assigns hour a written value using match
         let hour = match h {
             0   => "twelve",
             1   => "one",
@@ -34,7 +47,7 @@ fn main() {
             23  => "eleven",
             _   => "",
         };
-
+        // This assigns min a written value using match
         let minute = match m {
             0   => "o'clock",
             1   => "o'one",
@@ -98,17 +111,28 @@ fn main() {
             59  => "fifty-nine",
             _   => "",
         };
-
+        /*
+         * What part of the day is it currently
+         * morning: 00 - 11 hour
+         * afternoon: 12 - 17 hour
+         * evening: 18 - 23 hour
+         */
         let am_pm   = if h < 12 {
             "in the morning"
-        } else if h >= 12 && h < 18 {
+        } else if h >= 12 && h < 17 {
             "in the afternoon"
         } else {
             "in the evening"
         };
-
-        println!("{} {} {}", hour, minute, am_pm);
-
+        /*
+         * Print current written time to screen
+         * For Example: five fifty-five in the evening
+         */
+        println!("{h} {m} {part_of_day}", h=hour, m=minute, part_of_day=am_pm);
+        /*
+         * This loop prevents the main loop from proceeding until
+         * then.tm_min does not equal now.tm_min.
+         */
         loop {
             let now  = time::now();
             if now.tm_min != then.tm_min { break; }
